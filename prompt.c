@@ -19,9 +19,6 @@ int main() {
 
         if (strcmp(command, "exit") == 0) break;
         /* Commande pour quitter */
-
-        system(command);
-        /* Exécution de la commande */
     }
 
     return 0;
