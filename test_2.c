@@ -3,8 +3,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-
-#define MAX_COMMAND_LENGTH 100
+#include <string.h>
 
 void display_prompt() {
     printf("#cisfun$ ");
@@ -20,8 +19,8 @@ int execute_command(char *command) {
         // Child process
         if (execlp(command, command, (char *)NULL) == -1) {
             perror("simple_shell");
+            exit(1); // Exiting with a non-zero value to indicate failure
         }
-        exit(EXIT_FAILURE);
     } else if (pid < 0) {
         // Forking error
         perror("simple_shell");
@@ -38,12 +37,12 @@ int execute_command(char *command) {
 }
 
 int main() {
-    char command[MAX_COMMAND_LENGTH];
+    char command[100]; // Maximum command length
 
     while (1) {
         display_prompt();
 
-        if (fgets(command, MAX_COMMAND_LENGTH, stdin) == NULL) {
+        if (fgets(command, sizeof(command), stdin) == NULL) {
             // Handle end of file (Ctrl+D)
             printf("\nExiting shell.\n");
             break;
