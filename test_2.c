@@ -11,23 +11,23 @@ void display_prompt() {
 }
 
 int execute_command(char *command) {
-    pid_t pid, wpid;
+    pid_t pid;
     int status;
 
     pid = fork();
     if (pid == 0) {
-        // Child process
+        /* Child process */
         if (execlp(command, command, (char *)NULL) == -1) {
             perror("simple_shell");
-            exit(1); // Exiting with a non-zero value to indicate failure
+            exit(1); /* Exiting with a non-zero value to indicate failure*/
         }
     } else if (pid < 0) {
-        // Forking error
+        /* Forking error */
         perror("simple_shell");
     } else {
-        // Parent process
+        /* Parent process */
         do {
-            wpid = waitpid(pid, &status, WUNTRACED);
+            
         } while (!WIFEXITED(status) && !WIFSIGNALED(status));
 
         return 1;
@@ -37,22 +37,22 @@ int execute_command(char *command) {
 }
 
 int main() {
-    char command[100]; // Maximum command length
+    char command[100]; /* Maximum command length */
 
     while (1) {
         display_prompt();
 
         if (fgets(command, sizeof(command), stdin) == NULL) {
-            // Handle end of file (Ctrl+D)
+            /* Handle end of file (Ctrl+D) */
             printf("\nExiting shell.\n");
             break;
         }
 
-        // Remove newline character
+        /* Remove newline character */
         command[strcspn(command, "\n")] = '\0';
 
         if (execute_command(command) == 0) {
-            // Command not found or execution failed
+            /* Command not found or execution failed */
             printf("./shell: No such file or directory\n");
         }
     }
