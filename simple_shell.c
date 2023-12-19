@@ -1,62 +1,46 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <string.h>
+#include "shell.h"
 
-void display_prompt1() {
-    printf("#cisfun$ ");
-    fflush(stdout);
+
+void display_prompt() {
+    printf("simple_shell> ");
 }
 
-int execute_command(char *command) {
-    pid_t pid;
-    int status;
-
-    pid = fork();
+void run_command(char *command) {
+    pid_t pid = fork();
     if (pid == 0) {
-        /* Child process */
-        if (execlp(command, command, (char *)NULL) == -1) {
-            perror("simple_shell");
-            exit(1); /* Exiting with a non-zero value to indicate failure*/
+        char *args[1024];  /* Tableau pour stocker les arguments */
+        size_t i = 0;  /* Utilisez size_t ici */
+
+        /* Utilisation de strtok pour extraire les arguments */
+        char *token = strtok(command, " \t\n");
+        while (token != NULL && i < sizeof(args) / sizeof(args[0]) - 1) {
+            args[i++] = token;
+            token = strtok(NULL, " \t\n");
         }
+
+        args[i] = NULL;  /* Dernier élément du tableau doit être NULL */
+
+        if (execvp(args[0], args) == -1) {
+            perror("simple_shell");
+        }
+        exit(EXIT_FAILURE);
     } else if (pid < 0) {
-        /* Forking error */
         perror("simple_shell");
     } else {
-        /* Parent process */
-        do {
-            
-        } while (!WIFEXITED(status) && !WIFSIGNALED(status));
-
-        return 1;
+        int status;
+        waitpid(pid, &status, WUNTRACED);
     }
-
-    return 0;
 }
 
-int shell5() {
-    char command[100]; /* Maximum command length */
-
+int shell3() {
+    char command[1024];
     while (1) {
-        display_prompt1();
-
+        display_prompt();
         if (fgets(command, sizeof(command), stdin) == NULL) {
-            /* Handle end of file (Ctrl+D) */
-            printf("\nExiting shell.\n");
             break;
         }
-
-        /* Remove newline character */
         command[strcspn(command, "\n")] = '\0';
-
-        if (execute_command(command) == 0) {
-            /* Command not found or execution failed */
-            printf("./shell: No such file or directory\n");
-        }
+        run_command(command);
     }
-
-    return 0;
+    return EXIT_SUCCESS;
 }
