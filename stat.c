@@ -1,8 +1,7 @@
-#include <stdio.h>
-#include <sys/types.h>
+#include "shell.h"
 #include <sys/stat.h>
 #include <unistd.h>
-#include "shell.h"
+
 /**
  *  shell4 - stat example
  *

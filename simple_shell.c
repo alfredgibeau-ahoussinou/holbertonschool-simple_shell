@@ -1,8 +1,13 @@
 #include "shell.h"
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 void display_prompt() {
-    printf("simple_shell> ");
+    printf("cisfun$ ");
 }
 
 void run_command(char *command) {
@@ -33,7 +38,7 @@ void run_command(char *command) {
 }
 
 int shell3() {
-    char command[1024];
+    char command[1042];
     while (1) {
         display_prompt();
         if (fgets(command, sizeof(command), stdin) == NULL) {

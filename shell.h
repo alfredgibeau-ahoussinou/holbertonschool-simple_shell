@@ -1,7 +1,7 @@
 #ifndef SHELL_H_
 #define SHELL_H_
 #define MAX_LENGTH 1024
-#include "shell.h"
+
 #include <string.h>
 #include <stdio.h>
 #include <stdlib.h>
