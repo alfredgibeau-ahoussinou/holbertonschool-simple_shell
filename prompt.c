@@ -9,11 +9,15 @@ int main() {
         printf("cisfun$ ");
         /* Affichage du prompt */
 
-        if (!fgets(command, MAX_LENGTH, stdin)) break;
-        /* Lecture de la commande */
+        if (!fgets(command, MAX_LENGTH, stdin)) {
+            /* Lecture de la commande */
+            break;
+        }
 
-        if (strcmp(command, "exit") == 0) break;
-        /* Commande pour quitter */
+        if (strcmp(command, "exit") == 0) {
+            /* Commande pour quitter */
+            break;
+        }
     }
 
     return 0;
