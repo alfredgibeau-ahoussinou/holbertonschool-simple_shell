@@ -5,7 +5,7 @@
 #include <sys/wait.h>
 #include <string.h>
 
-void display_prompt() {
+void display_prompt1() {
     printf("#cisfun$ ");
     fflush(stdout);
 }
@@ -36,11 +36,11 @@ int execute_command(char *command) {
     return 0;
 }
 
-int main() {
+int shell5() {
     char command[100]; /* Maximum command length */
 
     while (1) {
-        display_prompt();
+        display_prompt1();
 
         if (fgets(command, sizeof(command), stdin) == NULL) {
             /* Handle end of file (Ctrl+D) */

@@ -8,7 +8,7 @@
  *
  * Return: Always 0.
  */
-int main(void)
+int Shell6(void)
 {
     pid_t child_pid;
     int status;

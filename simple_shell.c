@@ -24,7 +24,7 @@ void run_command(char *command) {
     }
 }
 
-int main() {
+int shell3() {
     char command[1024];
     while (1) {
         display_prompt();

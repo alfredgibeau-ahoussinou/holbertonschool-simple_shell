@@ -4,11 +4,11 @@
 #include <unistd.h>
 
 /**
- * main - stat example
+ *  shell4 - stat example
  *
  * Return: Always 0.
  */
-int main(int ac, char **av)
+int shell4(int ac, char **av)
 {
     unsigned int i;
     struct stat st;
