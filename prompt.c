@@ -35,7 +35,7 @@ int main (void) {
 			system("date");
 		} else if (strcmp(command, "echo") == 0) {
 			/* Commande echo */
-			system("echo qwerty");
+			system("echo /bin/ls");
 		} else {
 			/* Autres commandes */
 			printf("Commande non reconnue: %s\n", command);

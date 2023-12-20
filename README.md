@@ -42,7 +42,7 @@ Output:
 
 ## Flowchart 
 
-![Alt text](Flowchart-1.png)
+(Flowchart.png)
 
 ## Authors
 -Alfred Gibeau--Ahoussinou <7550@holbertonstudents.com>
