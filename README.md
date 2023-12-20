@@ -42,7 +42,6 @@ Output:
 
 ## Flowchart 
 
-![9DD1B19B-7FC6-458F-94AC-9B8437C992ED](https://github.com/mattkrozel/holbertonschool-simple_shell/assets/125398766/bf1a6244-edaa-49a9-8ce3-627da586988a)
 
 
 ## Authors

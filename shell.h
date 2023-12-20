@@ -11,7 +11,7 @@
 
 /* environmental variables */
 extern char **environ;
-int execute_command(char *command);
+void execute_command(char *command);
 void display_prompt1();
 int shell5();
 char command[MAX_LENGTH];

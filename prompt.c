@@ -2,7 +2,7 @@
 
 #define MAX_LENGTH 1024
 
-int main() {
+int main(void) {
 	char command[MAX_LENGTH];
 
 	while (1) {
