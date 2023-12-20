@@ -41,7 +41,7 @@ Output:
      AUTHORS man_1_simple_shell README.md simple_shell.c
 
 ## Flowchart 
-
+![Alt text](<Beige Colorful Minimal Flowchart Infographic Graph.png>)
 
 
 ## Authors
