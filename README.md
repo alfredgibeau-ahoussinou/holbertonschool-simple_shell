@@ -41,8 +41,8 @@ Output:
      AUTHORS man_1_simple_shell README.md simple_shell.c
 
 ## Flowchart 
-![Alt text](<Beige Colorful Minimal Flowchart Infographic Graph.png>)
 
+![Alt text](Flowchart-1.png)
 
 ## Authors
 -Alfred Gibeau--Ahoussinou <7550@holbertonstudents.com>
