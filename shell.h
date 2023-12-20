@@ -14,9 +14,6 @@ extern char **environ;
 int execute_command(char *command);
 void display_prompt1();
 int shell5();
-   char command[MAX_LENGTH];
-/**
- * ... (le reste de votre code)
- */
+char command[MAX_LENGTH];
 
 #endif /* SHELL_H_ */

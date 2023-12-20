@@ -7,16 +7,16 @@ char **split_string(char *str, const char *delimiters, int *num_tokens)
 	char **tokens = NULL;
 	int buffer_size = BUFSIZ;
 	int count = 0;
-	
+
 	/* allocate initial meory for storing tokens */
 	tokens = malloc(buffer_size * sizeof(char *));
 	if (!tokens)
 	{
-	
+
 		fprintf(stderr, "Memory allocation error.\n");
 		exit(1);
 	}
-	
+
 	/* tokenize string */
 	token = strtok(str, delimiters);
 	while (token != NULL)
@@ -36,7 +36,7 @@ char **split_string(char *str, const char *delimiters, int *num_tokens)
 		tokens[count++] = strdup(token);
 		token = strtok(NULL, delimiters);
 	}
-	
+
 	/* returns total num of tokens */
 	*num_tokens = count;
 	return tokens;
