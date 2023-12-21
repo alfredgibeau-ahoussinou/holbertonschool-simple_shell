@@ -1,63 +1,70 @@
 #include "shell.h"
 
+/*
+ * token_input - Tokenize the input
+ * @input: The stdin input
+ *
+ * Return: No return, void function
+ */
+void token_input(char *input)
+{
+	char *split = NULL;
+	char *tokens[1024] = {NULL};
+	int index = 0;
 
-char **split_string(char *str, const char *delimiters, int *num_tokens)
-{	
-	char *token;
-	char **tokens = NULL;
-	int buffer_size = BUFSIZ;
-	int count = 0;
+	/* Tokenize the input string using space as a delimiter */
+	split = strtok(input, " ");
 
-	/* allocate initial meory for storing tokens */
-	tokens = malloc(buffer_size * sizeof(char *));
-	if (!tokens)
+	while (split)
 	{
-
-		fprintf(stderr, "Memory allocation error.\n");
-		exit(1);
-	}
-
-	/* tokenize string */
-	token = strtok(str, delimiters);
-	while (token != NULL)
-	{
-		/* if num of tokens exceeds buffer size reallocate mem */
-		if (count >= buffer_size)
+		/* Check if the token is not an empty string */
+		if (strlen(split) > 0)
 		{
-			buffer_size *= 2;
-			tokens = realloc(tokens, buffer_size * sizeof(char *));
-			if (!tokens)
-			{
-				fprintf(stderr, "Memory allocation error.\n");
-				exit(1);
-			}
+			/* Store the token in the tokens array */
+			tokens[index] = split;
+			index += 1;
 		}
-		/* store the token and move to the next */
-		tokens[count++] = strdup(token);
-		token = strtok(NULL, delimiters);
+		/* Get the next token */
+		split = strtok(NULL, " ");
 	}
 
-	/* returns total num of tokens */
-	*num_tokens = count;
-	return tokens;
-
-}
-
-void print_tokens(char **tokens, int num_tokens)
-{
-	int i;
-	for (i = 0; i < num_tokens; ++i)
+	/* If the first token is NULL, return */
+	if (tokens[0] == NULL)
 	{
-		printf("%s\n", tokens[i]);
+		return;
 	}
-}
 
-void free_tokens(char **tokens, int num_tokens)
-{
-	int i;
-	for (i = 0; i < num_tokens; ++i)
+	/* Check for built-in commands */
+	if (strcmp(tokens[0], "env") == 0)
 	{
-		free(tokens[i]);
+		printPrompt();
+		return;
 	}
-	free(tokens);
+
+	if (strcmp(tokens[0], "exit") == 0 && tokens[1] == NULL)
+	{
+		/* If the command is 'exit' without arguments, free memory and exit */
+		free(tokens[0]);
+		exit(0);
+	}
+
+	/* Duplicate the first token before modifying it */
+	split = strdup(tokens[0]);
+
+	/* Get the full path for the command */
+	tokens[0] = _getpath(tokens[0]);
+
+	/* If a valid path is found, free memory and execute the command */
+	if (tokens[0] != NULL)
+	{
+		free(split);
+		executable(tokens, input);
+		free(tokens[0]);
+		return;
+	}
+
+	/* If the command is not found, print an error and exit with status 127 */
+	fprintf(stderr, "./hsh: 1: %s: not found\n", split);
+	free(split);
+	exit(127);
 }
